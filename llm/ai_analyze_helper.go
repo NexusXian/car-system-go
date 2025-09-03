@@ -42,7 +42,7 @@ func AIModel(user model.User, records []model.InfractionRecord) (string, error) 
 		schema.SystemMessage("你是一个{role},你的性格是{character}"),
 		&schema.Message{
 			Role:    schema.User,
-			Content: "请帮我分析一下这位驾驶员{user}的驾驶行为,他/她最近七天的违规记录在这里{records}，并给出相关建议,这个建议是给后台管理员看的，不是对驾驶员说的",
+			Content: "请帮我分析一下这位驾驶员{user}的驾驶行为,他/她最近三次的违规记录在这里{records}，并给出相关建议,这个建议是给后台管理员看的，不是对驾驶员说的",
 		},
 	) // 3. 构造输入消息
 

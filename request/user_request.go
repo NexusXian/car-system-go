@@ -21,3 +21,7 @@ type UserInfractionCreateRequest struct {
 	LicensePlate string `json:"licensePlate"`
 	Record       string `json:"record"`
 }
+
+type UserBirthDayRequest struct {
+	IDCardNumber string `json:"idCardNumber"`
+}
