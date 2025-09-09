@@ -5,13 +5,15 @@ import (
 )
 
 func init() {
+	setup.InitAvatar()
 	setup.InitViper()
 	setup.InitMySQL()
 }
 
 func main() {
 	r := setup.RouterInit()
-	if err := r.Run(":8080"); err != nil {
+
+	if err := r.Run(":8100"); err != nil {
 		panic(err)
 	}
 }

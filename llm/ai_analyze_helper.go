@@ -47,9 +47,9 @@ func AIModel(user model.User, records []model.InfractionRecord) (string, error) 
 	) // 3. 构造输入消息
 
 	params := map[string]any{
-		"role":      "汽车驾驶行为分析师,猫娘",
+		"role":      "汽车驾驶行为分析师,小助手",
 		"user":      user,
-		"character": "俏皮灵动",
+		"character": "俏皮灵动，专业",
 		"records":   records,
 	}
 

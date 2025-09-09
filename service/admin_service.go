@@ -14,26 +14,26 @@ import (
 	"time"
 )
 
+// 管理员注册逻辑
 func AdminRegisterService(req request.AdminRegisterRequest) error {
 	if _, err := repository.AdminFindByAdminID(req.AdminID); err == nil {
 		return errors.New("管理员工号" + req.AdminID + "已存在！")
 	}
-
 	hashPWS, err := utils.HashPassword(req.Password)
 	if err != nil {
 		return errors.New("密码加密失败")
 	}
-
 	admin := &model.Admin{
 		AdminID:  req.AdminID,
 		Password: hashPWS,
 	}
-
 	if err := repository.AdminInsert(admin); err != nil {
 		return err
 	}
 	return nil
 }
+
+//管理员登录
 
 func AdminLoginService(req request.AdminLoginRequest) (*response.AdminLoginResponse, error) {
 	admin, err := repository.AdminFindByAdminID(req.AdminID)
@@ -54,12 +54,15 @@ func AdminLoginService(req request.AdminLoginRequest) (*response.AdminLoginRespo
 		Token:      token,
 		ExpireTime: expirationTime,
 		AdminInfo: response.AdminInfo{
-			WorkID: admin.AdminID,
+			WorkID:    admin.AdminID,
+			AvatarUrl: admin.AvatarUrl,
 		},
 		TimeStamp: time.Now().Unix(),
 	}
 	return resp, nil
 }
+
+//管理员找回密码
 
 func AdminFindPasswordService(req request.AdminFindPasswordRequest) error {
 	admin, err := repository.AdminFindByAdminID(req.AdminID)

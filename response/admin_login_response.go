@@ -10,5 +10,6 @@ type AdminLoginResponse struct {
 }
 
 type AdminInfo struct {
-	WorkID string `json:"workID"`
+	WorkID    string `json:"workID"`
+	AvatarUrl string `json:"avatarUrl"`
 }

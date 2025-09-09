@@ -13,6 +13,5 @@ func RegisterRecordRouter(r *gin.Engine) {
 	{
 		RecordGroup.POST("/findAll", handler.InfractionRecordFindAllHandler)
 		RecordGroup.POST("/findByIDCardNumber", handler.InfractionRecordFindByIDCardNumberHandler)
-		RecordGroup.POST("/findByRealName", handler.InfractionRecordFindByRealNameNumberHandler)
 	}
 }

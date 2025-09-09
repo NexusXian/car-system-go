@@ -14,3 +14,6 @@ type AdminRegisterRequest struct {
 	AdminID  string `json:"adminID"`
 	Password string `json:"password"`
 }
+type AdminAvatarUploadRequest struct {
+	AdminID string `form:"adminID" binding:"required,adminID"` // 从 form-data 中获取 email 字段
+}

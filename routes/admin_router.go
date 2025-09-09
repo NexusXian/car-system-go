@@ -14,5 +14,6 @@ func RegisterAdminRouter(r *gin.Engine) {
 		AdminGroup.POST("/login", handler.AdminLoginHandler)
 		AdminGroup.POST("/findPassword", handler.AdminFindPasswordHandler)
 		AdminGroup.POST("/birthday", handler.BirthdayHandler).Use(jwt.AuthRequired())
+		AdminGroup.POST("/updateAvatar", handler.AdminUploadAvatarsHandler)
 	}
 }
