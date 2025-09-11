@@ -24,6 +24,9 @@ type User struct {
 	FamilyBrief        string      `json:"familyBrief" comment:"家庭情况简要记录"`
 	Subsidy            int         `json:"subsidy" comment:"津贴" gorm:"default:1000"`
 	InfractionCount    int         `json:"infractionCount" comment:"违规次数"`
+	OxygenSaturation   float64     `json:"oxygenSaturation" comment:"血氧"`
+	HeartRate          float64     `json:"heartRate" comment:"心率"`
+	BodyTemperature    float64     `json:"bodyTemperature" comment:"体温"`
 	CreateAt           time.Time   `gorm:"column:create_at;autoCreateTime"`
 	UpdateAt           time.Time   `gorm:"column:update_at;autoUpdateTime"`
 }

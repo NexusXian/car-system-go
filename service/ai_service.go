@@ -11,5 +11,7 @@ func AiAnalyzeService(user model.User, records []model.InfractionRecord) (string
 		return "", err
 	}
 	return message, nil
-
+}
+func AiAnalyzeStreamService(user model.User, records []model.InfractionRecord) (<-chan string, error) {
+	return llm.AIModelStream(user, records)
 }

@@ -25,3 +25,7 @@ type UserInfractionCreateRequest struct {
 type UserBirthDayRequest struct {
 	IDCardNumber string `json:"idCardNumber"`
 }
+
+type UserFindRequest struct {
+	IDCardNumber string `json:"idCardNumber"`
+}

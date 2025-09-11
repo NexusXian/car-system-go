@@ -77,3 +77,45 @@ func UserInfractionCreateHandler(c *gin.Context) {
 		Message: "违规行为已记录",
 	})
 }
+
+func UserFindHandler(c *gin.Context) {
+	var req request.UserFindRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, utils.Response{
+			Code:    http.StatusBadRequest,
+			Message: err.Error(),
+			Data:    nil,
+		})
+		return
+	}
+	user, err := service.UserFindService(req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, utils.Response{
+			Code:    http.StatusInternalServerError,
+			Message: err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, utils.Response{
+		Code:    http.StatusOK,
+		Message: "查询成功",
+		Data:    user,
+	})
+}
+
+func UserFindAllInfoHandler(c *gin.Context) {
+	resp, err := service.UserFindAllInfoService()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, utils.Response{
+			Code:    http.StatusInternalServerError,
+			Message: err.Error(),
+			Data:    nil,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, utils.Response{
+		Code:    http.StatusOK,
+		Message: "查询成功",
+		Data:    resp,
+	})
+}

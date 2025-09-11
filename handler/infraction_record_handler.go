@@ -4,6 +4,7 @@ import (
 	"car-system-go/request"
 	"car-system-go/service"
 	"car-system-go/utils"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -11,7 +12,7 @@ import (
 
 func InfractionRecordFindByIDCardNumberHandler(c *gin.Context) {
 	var req request.InfractionRecordFindByIDCardNumber
-	if err := c.ShouldBind(&req); err != nil {
+	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, utils.Response{
 			Code:    http.StatusBadRequest,
 			Data:    nil,
@@ -19,6 +20,7 @@ func InfractionRecordFindByIDCardNumberHandler(c *gin.Context) {
 		})
 		return
 	}
+	fmt.Printf("InfractionRecordFindByIDCardNumber: %v\n", req)
 	records, err := service.InfractionRecordFindByIDCardNumberService(req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, utils.Response{

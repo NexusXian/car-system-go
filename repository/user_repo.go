@@ -57,6 +57,15 @@ func UserFindAll() ([]*model.User, error) {
 	return users, nil
 }
 
+func UserFindAllASC() ([]*model.User, error) {
+	var users []*model.User
+	// 使用Order指定按infraction_count升序排序（ASC可省略，默认即为升序）
+	if err := database.DB.Order("infraction_count ASC").Find(&users).Error; err != nil {
+		return users, errors.New("查询失败，请稍后重试！")
+	}
+	return users, nil
+}
+
 //redis
 
 // 从缓存获取用户

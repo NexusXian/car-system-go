@@ -4,6 +4,7 @@ import (
 	"car-system-go/model"
 	"car-system-go/repository"
 	"car-system-go/request"
+	"car-system-go/response"
 	"car-system-go/utils"
 	"errors"
 )
@@ -71,4 +72,29 @@ func UserInfractionCreateService(req request.UserInfractionCreateRequest) error 
 	}
 
 	return nil
+}
+
+func UserFindAllInfoService() ([]*response.UserBasicResponse, error) {
+	users, err := repository.UserFindAllASC()
+
+	var result []*response.UserBasicResponse
+	for _, user := range users {
+		result = append(result, &response.UserBasicResponse{
+			RealName:        user.RealName,
+			IDCardNumber:    user.IDCardNumber,
+			InfractionCount: user.InfractionCount,
+		})
+	}
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+func UserFindService(req request.UserFindRequest) (*model.User, error) {
+	user, err := repository.UserFindByIDCardNumber(req.IDCardNumber)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
 }

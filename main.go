@@ -8,6 +8,7 @@ func init() {
 	setup.InitAvatar()
 	setup.InitViper()
 	setup.InitMySQL()
+
 }
 
 func main() {
