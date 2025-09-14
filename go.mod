@@ -1,6 +1,6 @@
 module car-system-go
 
-go 1.25
+go 1.25.0
 
 require (
 	github.com/cloudwego/eino v0.4.8
@@ -19,6 +19,7 @@ require (
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
+	github.com/NexusXian/go-web/utils v0.0.0-20250904142119-d8b9e23b6fdf // indirect
 	github.com/bahlo/generic-list-go v0.2.0 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect
 	github.com/bytedance/gopkg v0.1.3 // indirect

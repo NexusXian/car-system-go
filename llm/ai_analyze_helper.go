@@ -5,7 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
+	"io"
 	"os"
 
 	"github.com/cloudwego/eino-ext/components/model/ark"
@@ -145,25 +145,26 @@ func AIModelStream(user model.User, records []model.InfractionRecord) (<-chan st
 	streamChan := make(chan string)
 
 	// 启动 goroutine 读取流并发送到通道
+	// 启动 goroutine 读取流并发送到通道
 	go func() {
 		defer close(streamChan) // 确保通道最终关闭
 
 		// 循环读取流中的内容
 		for {
-			// 读取下一个流式片段（Block 直到有数据或结束）
+			// 读取下一个流式片段
 			msg, err := streamReader.Recv()
 			if err != nil {
-				// 流结束或出错时退出循环
-				if !errors.Is(err, schema.ErrNoValue) { // 区分正常结束和错误
-					streamChan <- fmt.Sprintf("流式输出错误: %v", err)
+				if errors.Is(err, io.EOF) || errors.Is(err, schema.ErrNoValue) {
+					break // 直接退出循环，不发送任何内容
 				}
+				// 只有非预期错误（如网络中断、API 异常）才发送错误提示
+				streamChan <- fmt.Sprintf("流式输出错误: %v", err)
 				break
 			}
 
-			// 将片段内容发送到通道（假设内容在 msg.Content 中）
+			// 将片段内容发送到通道
 			if msg.Content != "" {
 				streamChan <- msg.Content
-				log.Println(msg.Content)
 			}
 		}
 	}()

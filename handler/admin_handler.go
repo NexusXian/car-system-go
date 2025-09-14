@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 管理员注册页面
 func AdminRegisterHandler(c *gin.Context) {
 	var req request.AdminRegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -35,6 +36,7 @@ func AdminRegisterHandler(c *gin.Context) {
 	})
 }
 
+// 管理员登录
 func AdminLoginHandler(c *gin.Context) {
 	var req request.AdminLoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {

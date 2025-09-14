@@ -1,6 +1,7 @@
 package main
 
 import (
+	"car-system-go/service"
 	"car-system-go/setup"
 )
 
@@ -14,6 +15,7 @@ func init() {
 func main() {
 	r := setup.RouterInit()
 
+	go service.AlcoholSmokeService()
 	if err := r.Run(":8100"); err != nil {
 		panic(err)
 	}
