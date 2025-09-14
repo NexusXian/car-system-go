@@ -11,6 +11,7 @@ import (
 var RDB *redis.Client
 var CTX = context.Background()
 
+// 初始化redis
 func InitRedis() {
 	RDB = redis.NewClient(&redis.Options{
 		Addr:     viper.GetString("redis.Addr"),
