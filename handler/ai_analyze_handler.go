@@ -115,3 +115,55 @@ func AiAnalyzeStreamHandler(c *gin.Context) {
 		}
 	})
 }
+
+//ai问答这块
+
+func AiAnswerHandler(c *gin.Context) {
+	var ai request.AIAnswerRequest
+	if err := c.ShouldBindJSON(&ai); err != nil {
+		c.JSON(http.StatusBadRequest, utils.Response{
+			Code:    http.StatusBadRequest,
+			Message: err.Error(),
+		})
+		return
+	}
+
+	records, err := repository.InfractionRecordFindAll()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, utils.Response{
+			Code:    http.StatusBadRequest,
+			Message: err.Error(),
+		})
+		return
+	}
+
+	// 获取流式通道
+	streamChan, err := service.AiQuestionService(*records, ai.Question)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, utils.Response{
+			Code:    http.StatusInternalServerError,
+			Message: err.Error(),
+		})
+		return
+	}
+
+	c.Header("Content-Type", "text/event-stream")
+	c.Header("Cache-Control", "no-cache")
+	c.Header("Connection", "keep-alive")
+
+	c.Stream(func(w io.Writer) bool {
+		select {
+		case chunk, ok := <-streamChan:
+			if !ok {
+				return false
+			}
+			if _, err := w.Write([]byte(chunk)); err != nil {
+				return false
+			}
+			c.Writer.Flush()
+			return true
+		case <-c.Request.Context().Done():
+			return false
+		}
+	})
+}

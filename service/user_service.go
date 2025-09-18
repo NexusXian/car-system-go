@@ -51,7 +51,6 @@ func UserInfractionCreateService(req request.UserInfractionCreateRequest) error 
 		// 如果查询出错（通常是未找到用户），返回错误
 		return errors.New("当前用户 " + req.IDCardNumber + " 不存在")
 	}
-
 	// 创建违规记录
 	record := &model.InfractionRecord{
 		IDCardNumber: req.IDCardNumber,

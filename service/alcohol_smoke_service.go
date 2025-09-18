@@ -34,8 +34,8 @@ var (
 	stateMutex = &sync.RWMutex{}
 
 	// 违规判定阈值
-	alcoholWarningThreshold = 120.0 // 酒驾阈值
-	alcoholDangerThreshold  = 180.0 // 醉驾阈值
+	alcoholWarningThreshold = 100.0 // 酒驾阈值
+	alcoholDangerThreshold  = 150.0 // 醉驾阈值
 	smokeThreshold          = 90.0  // 抽烟阈值
 
 	// 违规冷却时间（同一违规类型在此时间内不重复记录）

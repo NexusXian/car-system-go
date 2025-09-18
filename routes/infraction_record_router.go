@@ -9,9 +9,9 @@ import (
 
 func RegisterRecordRouter(r *gin.Engine) {
 	RecordGroup := r.Group("/api/record")
-	RecordGroup.Use(jwt.AuthRequired())
 	{
-		RecordGroup.POST("/findAll", handler.InfractionRecordFindAllHandler)
-		RecordGroup.POST("/findByIDCardNumber", handler.InfractionRecordFindByIDCardNumberHandler)
+		RecordGroup.POST("/findByIDCard", handler.InfractionRecordFindByIDCardNumberHandler)
+		RecordGroup.POST("/findAll", handler.InfractionRecordFindAllHandler).Use(jwt.AuthRequired())
+		RecordGroup.POST("/findByIDCardNumber", handler.InfractionRecordFindByIDCardNumberHandler).Use(jwt.AuthRequired())
 	}
 }

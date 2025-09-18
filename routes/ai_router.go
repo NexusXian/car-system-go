@@ -9,9 +9,9 @@ import (
 
 func RegisterAiRouter(r *gin.Engine) {
 	AdminGroup := r.Group("/api/ai")
-	AdminGroup.Use(jwt.AuthRequired())
 	{
-		AdminGroup.POST("/analyze", handler.AiAnalyzeHandler)
-		AdminGroup.POST("/stream", handler.AiAnalyzeStreamHandler)
+		AdminGroup.POST("/analyze", handler.AiAnalyzeHandler).Use(jwt.AuthRequired())
+		AdminGroup.POST("/stream", handler.AiAnalyzeStreamHandler).Use(jwt.AuthRequired())
+		AdminGroup.POST("/answer", handler.AiAnswerHandler)
 	}
 }

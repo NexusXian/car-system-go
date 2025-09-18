@@ -15,3 +15,7 @@ func AiAnalyzeService(user model.User, records []model.InfractionRecord) (string
 func AiAnalyzeStreamService(user model.User, records []model.InfractionRecord) (<-chan string, error) {
 	return llm.AIModelStream(user, records)
 }
+
+func AiQuestionService(records []model.InfractionRecord, message string) (<-chan string, error) {
+	return llm.AIQuestionStream(records, message)
+}
