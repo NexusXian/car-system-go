@@ -9,10 +9,12 @@ import (
 
 func RegisterUserRouter(r *gin.Engine) {
 	UserGroup := r.Group("/api/user")
+	UserGroup.POST("/report", handler.AiReportUser)
 	{
 		UserGroup.POST("/findAll", handler.UserFindAllHandler)
 		UserGroup.POST("/createRecord", handler.UserInfractionCreateHandler)
 		UserGroup.GET("/user-findAll", handler.UserFindAllInfoHandler).Use(jwt.AuthRequired())
 		UserGroup.POST("/userFind", handler.UserFindHandler).Use(jwt.AuthRequired())
+
 	}
 }

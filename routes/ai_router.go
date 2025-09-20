@@ -13,5 +13,7 @@ func RegisterAiRouter(r *gin.Engine) {
 		AdminGroup.POST("/analyze", handler.AiAnalyzeHandler).Use(jwt.AuthRequired())
 		AdminGroup.POST("/stream", handler.AiAnalyzeStreamHandler).Use(jwt.AuthRequired())
 		AdminGroup.POST("/answer", handler.AiAnswerHandler)
+		AdminGroup.GET("/classify", handler.DriverClassifyHandler)
+		AdminGroup.GET("/report", handler.AiReportHandler)
 	}
 }
